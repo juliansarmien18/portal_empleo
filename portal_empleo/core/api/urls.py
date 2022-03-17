@@ -8,6 +8,7 @@ router = routers.DefaultRouter()
 
 router.register(r'user',views.UserAppViewSet,basename='UserApp')
 router.register(r'offers',views.OfferViewSet, basename = "Offers")
+router.register(r'postulation',views.PostulationViewSet, basename = "Postulation")
 
 
 urlpatterns = [

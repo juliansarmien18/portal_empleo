@@ -63,7 +63,22 @@ class OfferViewSet(viewsets.ModelViewSet):
         serializer.save(title = serializer.validated_data['title'], description = serializer.validated_data['description'],
                                 salary = serializer.validated_data['salary'],updater_user = self.request.user, update_date = datetime.now())
 
-        
+class PostulationViewSet(viewsets.ModelViewSet):
+    queryset = Postulation.objects.all().select_related('offer')
+    serializer_class = PostulationSerializer
+    permission_classes = [IsAuthenticatedOrReadOnly]
+    
+    def create(self, request, *args, **kwargs):
+        serializer = PostulationSerializer(data = request.data)
+        if serializer.is_valid():
+            if Postulation.objects.filter(offer = Offers.objects.get(id = serializer.data['offer']),user= self.request.user).exists():
+                return Response({"Postulation":"usted ya se postulo a esta vacante"}, status = status.HTTP_400_BAD_REQUEST)
+            else:
+                postulation = Postulation(offer = Offers.objects.get(id = serializer.data['offer']),user= self.request.user, creation_date = datetime.now())
+                postulation.save()
+                return Response(serializer.data,status = status.HTTP_201_CREATED)
+        else:
+            return Response(serializer.errors, status = status.HTTP_400_BAD_REQUEST)
         
 
 #CRUD de usuario

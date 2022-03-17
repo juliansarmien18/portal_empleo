@@ -19,7 +19,11 @@ class OfferSerializer(serializers.ModelSerializer):
         extra_kwargs = {
             'status':{'read_only':True},
         }
-        
+
+class PostulationSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Postulation
+        fields = ['offer']
 
 class UserAppSerializer(serializers.ModelSerializer):
     user = AuthUserSerializer()
@@ -27,3 +31,6 @@ class UserAppSerializer(serializers.ModelSerializer):
     class Meta:
         model = UserApp
         fields = '__all__'
+
+
+        

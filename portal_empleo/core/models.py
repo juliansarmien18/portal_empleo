@@ -38,13 +38,13 @@ class Offers(models.Model):
 
 class Postulation(models.Model):
     offer = models.ForeignKey(Offers, on_delete= models.CASCADE)
-    user_app = models.ForeignKey(User, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
     creation_date = models.DateTimeField()
     
     class Meta:
         managed = True
         db_table = 'postulation'
-        unique_together = (('offer','user_app'),)
+        unique_together = (('offer','user'),)
     
 class Status(models.Model):
     value = models.CharField(max_length=15)
