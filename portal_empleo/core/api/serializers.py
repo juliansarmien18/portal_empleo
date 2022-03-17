@@ -4,14 +4,24 @@ from rest_framework import serializers
 class AuthUserSerializer(serializers.ModelSerializer):
     
     class Meta:
-        model = AuthUser
-        exclude=['last_login','is_superuser','is_staff','is_active','date_joined','password']
+        model = User
+        fields = ['username','first_name', 'last_name','email','password']
+
+
+class LoginSerializer(serializers.Serializer):
+    username = serializers.CharField(max_length = 150)
+    password = serializers.CharField(max_length = 128)
+    
+class OfferSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Offers
+        exclude = ['creation_date', 'update_date', 'updater_user', 'creator_user']
         extra_kwargs = {
-            'password':{'write_only':True}
+            'status':{'read_only':True},
         }
+        
 
 class UserAppSerializer(serializers.ModelSerializer):
-    password = serializers.CharField(write_only = True, max_length = 15)
     user = AuthUserSerializer()
     
     class Meta:
