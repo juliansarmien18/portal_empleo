@@ -4,9 +4,13 @@ Prueba sobre un Portal básico de empleo en django implementando django-restfram
 Se contemplan 5 modelos:
 
 DocumentType: para los tipos de documentos
+
 Status: para definir los estados de las ofertas
+
 Offers: para la creación y actualización de ofertas
+
 Postulation: para la creación de postulaciones
+
 UserApp: para complementar los datos de auth_user, tiene una llave foranea a esta tabla
 
 Se utiliza el metodo de autenticación Token Authtentication para dar cumplimiento con la lógica del negocio
