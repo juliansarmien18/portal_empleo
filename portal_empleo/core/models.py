@@ -38,8 +38,8 @@ class Offers(models.Model):
 
 class Postulation(models.Model):
     offer = models.ForeignKey(Offers, on_delete= models.CASCADE)
-    user_app = models.ForeignKey('UserApp', on_delete=models.CASCADE)
-    creation_date = models.DateTimeField(auto_now=True)
+    user_app = models.ForeignKey(User, on_delete=models.CASCADE)
+    creation_date = models.DateTimeField()
     
     class Meta:
         managed = True
