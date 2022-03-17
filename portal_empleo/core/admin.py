@@ -4,3 +4,4 @@ from .models import *
 
 admin.site.register(DocumentType)
 admin.site.register(Status)
+admin.site.register(UserApp)
