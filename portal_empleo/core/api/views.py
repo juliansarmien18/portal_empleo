@@ -13,7 +13,7 @@ from django.contrib.auth.hashers import make_password, check_password
 
 from django.db import transaction
 
-
+#vista para obtención de token
 class loginview(generics.CreateAPIView):
     serializer_class = LoginSerializer
     
@@ -33,6 +33,7 @@ class loginview(generics.CreateAPIView):
             if not pwd_valid:
                 return Response({'User':'Usuario o contraseña incorrectos'}, status = status.HTTP_400_BAD_REQUEST)
             else:
+                #obtiene o crea en la tabla authtoken_token
                 token, _ = Token.objects.get_or_create(user = user)
                 #print(token.key)
                 return Response({'token': token.key,
@@ -40,6 +41,7 @@ class loginview(generics.CreateAPIView):
         else:
             return Response(serializer.errors, status = status.HTTP_400_BAD_REQUEST)
 
+#CRUD ofertas
 class OfferViewSet(viewsets.ModelViewSet):
     queryset = Offers.objects.all()
     serializer_class = OfferSerializer
@@ -62,7 +64,9 @@ class OfferViewSet(viewsets.ModelViewSet):
     def perform_update(self, serializer):
         serializer.save(title = serializer.validated_data['title'], description = serializer.validated_data['description'],
                                 salary = serializer.validated_data['salary'],updater_user = self.request.user, update_date = datetime.now())
+        
 
+#Creacion de postulacion
 class PostulationViewSet(viewsets.ModelViewSet):
     queryset = Postulation.objects.all().select_related('offer')
     serializer_class = PostulationSerializer
