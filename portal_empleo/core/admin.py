@@ -5,3 +5,4 @@ from .models import *
 admin.site.register(DocumentType)
 admin.site.register(Status)
 admin.site.register(UserApp)
+admin.site.register(Offers)
