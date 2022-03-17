@@ -15,8 +15,8 @@ UserApp: para complementar los datos de auth_user, tiene una llave foranea a est
 
 Se utiliza el metodo de autenticación Token Authtentication para dar cumplimiento con la lógica del negocio
 
-El proyecto tiene una app llamada core, dentro de esta app se encuentra la carpeta api, que contiene las vistas, las urls, los serializadores y las funciones
-en functions.py se encuentra la función para enviar email por consola en el registro de un usuario.
+El proyecto tiene una app llamada core, dentro de esta app se encuentra la carpeta api, que contiene las vistas, las urls, los serializadores y las funciones,
+en el archivo functions.py se encuentra la función para enviar email por consola en el registro de un usuario.
 
 El sistema esta configurado para que el administrador pueda crear y modificar tipos de document, usuarios, ofertas y estados a su gusto.
 
