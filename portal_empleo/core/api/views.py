@@ -1,3 +1,4 @@
+from .functions import *
 from .serializers import *
 from rest_framework import viewsets,status
 from rest_framework.response import Response
@@ -14,7 +15,7 @@ class UserAppViewSet(viewsets.ModelViewSet):
         if serializer.is_valid():
             auth_user = serializer.data['user']
 
-            auth_user = AuthUser(password = make_password(auth_user['password']),
+            auth_user = AuthUser(password = make_password(serializer.validated_data['password']),
                             is_superuser=False,username=auth_user['username'],
                             last_name=auth_user['last_name'],
                             email=auth_user['email'],
@@ -29,9 +30,10 @@ class UserAppViewSet(viewsets.ModelViewSet):
                                 second_lastname = serializer.data['second_lastname'],
                                 profession = serializer.data['profession'],
                                 profile = serializer.data['profile'],
-                                document_type = serializer.data['document_type'],
+                                document_type = DocumentType.objects.get(id = serializer.data['document_type']),
                                 user =auth_user)
             user_app.save()
+            register_mail(auth_user.email)
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         else:
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
